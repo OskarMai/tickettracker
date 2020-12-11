@@ -1,0 +1,41 @@
+{% extends "authenticate/layout.html" %}
+{% block body %}
+	{%for message in messages%}
+		<b>{{message}}</b>
+	{%endfor%}
+	<h1>List of Users</h1>
+	<form method="get">
+		{% csrf_token %}
+		{{user_filter.form}}
+		<button type="submit">Submit</button>
+	</form>
+	<div>
+		<table>
+			<tr>
+				<th>Username</th>
+				<th>Email</th>
+				<th>Projects Assigned</th>
+			</tr>
+		{% for user in user_list %}
+			<tr>
+				<td>{{user.user_name}}</td>
+				<td>{{user.email}}</td>
+				<td>
+				{% for instance in user.medium_member.all %}
+					{{instance.project.name}},
+				{%endfor%}
+				</td>
+			</tr>
+
+		{%endfor%}
+		</table>
+	</div>
+	<div>
+		<h2>Add Project Members</h2>
+		<form method="post" action="{% url 'projects:personnel' %}">
+			{% csrf_token %}
+			{{form}}
+			<button type="submit">Submit</button>
+		</form>
+	</div>
+{% endblock %}

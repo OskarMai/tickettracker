@@ -1,0 +1,35 @@
+{% extends "authenticate/layout.html" %}
+
+{% block body%}
+	<h2>Please Register below</h2>
+	<form method="post" action="{% url 'authenticate:register' %}">
+		{% csrf_token %}
+		<div>
+			{{ form.email.label }}
+			{{ form.email }}
+		</div>
+		<div>
+			{{ form.user_name.label }}
+			{{ form.user_name }}
+		</div>
+		<div>
+			{{ form.first_name.label }}
+			{{ form.first_name }}
+		</div>
+		<div>
+			{{ form.password1.label }}
+			{{ form.password1 }}
+		</div>
+		<div>
+			{{ form.password2.label }}
+			{{ form.password2 }}
+		</div>
+
+		<input type = "submit" value = "submit"> 
+	</form>
+
+	<div>
+		{{form.errors}}
+	</div>
+	<div><a href = "{% url 'authenticate:login'%}" >Already have an account?</a></div>
+{%endblock%}

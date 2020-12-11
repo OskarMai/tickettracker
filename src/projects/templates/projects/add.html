@@ -1,0 +1,15 @@
+{% extends "authenticate/layout.html" %}
+{% block body %}
+	<h1>This is the project's add page</h1>
+	<form method="post" action="{% url 'projects:add' %}">
+		{% csrf_token %}
+
+		{{form.name.label}}: {{form.name}}
+		{{form.description.label}}: {{form.description}}
+		{{form.submitter.label}}: {{form.submitter}}
+		<button type="submit">Submit</button>
+	</form>
+	<form action="{% url 'projects:index' %}">
+		<button type="submit">Back To Projects</button>
+	</form>
+{% endblock %}
