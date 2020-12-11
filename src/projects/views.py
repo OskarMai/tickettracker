@@ -7,7 +7,7 @@ from .filters import *
 from .forms import *
 # Create your views here.
 
-@login_required(login_url='authenticate:login')
+@login_required(login_url='authenticate:login')#decorator that does not allow access to views when you are not logged in
 def index(request):
 	project_list = Project.objects.all()#all project objects
 	project_filter = ProjectFilter(request.GET , queryset= Project.objects.all())
@@ -30,7 +30,7 @@ def add(request):
 
 @login_required(login_url='authenticate:login')
 def personnel(request):
-	user_list = NewUser.objects.all()
+	user_list = NewUser.objects.all()#list of all users objects
 	user_filter = UserFilter(request.GET,queryset=user_list)
 	user_list= user_filter.qs 
 	if request.method == "POST":
@@ -38,18 +38,24 @@ def personnel(request):
 		if form.is_valid():
 			project = form.cleaned_data['project']
 			member = form.cleaned_data['member']
-			try:
-				assignment = ProjectMember(project= project,member= member)
-				assignment.save()
-				messages.success(request,"SUCCESSFULLY ADDED " + member.user_name + " TO PROJECT: " + project.name)
+			action = form.cleaned_data['action']
+			if action == "0":#0 means add
+				try:
+					assignment = ProjectMember(project= project,member= member)
+					assignment.save()
+					messages.success(request,"SUCCESSFULLY ADDED " + member.user_name + " TO PROJECT: " + project.name)
+					return redirect("projects:personnel")
+				except:
+					messages.error(request,"SELECTED USER ALREADY ASSIGNED TO PROJECT")
+					return render(request, "personnel/index.html",{
+					'user_list' : user_list,
+					'user_filter': user_filter,
+					'form' : AssignProjectForm()
+				})
+			elif action =="1":#1 means remove
+				ProjectMember.objects.filter(project=project, member=member).delete()
+				messages.success(request, "SUCCESSFULLY REMOVED " + member.user_name + " FROM PROJECT: " + project.name)
 				return redirect("projects:personnel")
-			except:
-				messages.error(request,"SELECTED USER ALREADY ASSIGNED TO PROJECT")
-				return render(request, "personnel/index.html",{
-				'user_list' : user_list,
-				'user_filter': user_filter,
-				'form' : AssignProjectForm()
-			})
 		else:
 			messages.error(request,"SELECTION IS INVALID")
 			return render(request, "personnel/index.html",{
@@ -64,4 +70,4 @@ def personnel(request):
 		'form' : AssignProjectForm()
 
 	}
-	return render(request,"personnel/index.html",context)
+		return render(request,"personnel/index.html",context)
