@@ -27,7 +27,8 @@ def index(request):
 				context = { 
 				'project_list': project_list,
 				'project_filter': project_filter,
-				'form': ProjectAddForm()
+				'form': ProjectAddForm(),
+				'form2': ProjectDeleteForm()
 				}
 				return render(request, "projects/index.html",context)
 		else: #if form is not valid
@@ -35,16 +36,32 @@ def index(request):
 			context = { 
 			'project_list': project_list,
 			'project_filter': project_filter,
-			'form': ProjectAddForm()
+			'form': ProjectAddForm(),
+			'form2': ProjectDeleteForm()
 			}
 			return render(request, "projects/index.html",context)
 	else:
 		context = { 
 			'project_list': project_list,
 			'project_filter': project_filter,
-			'form': ProjectAddForm()
+			'form': ProjectAddForm(),
+			'form2': ProjectDeleteForm()
 		}
 		return render(request, "projects/index.html",context)
+
+@login_required(login_url='authenticate:login')
+def delete(request):
+	if request.method=="POST":
+		form = ProjectDeleteForm(request.POST)
+		if form.is_valid():
+			project = form.cleaned_data['project']
+			project.delete()
+			messages.success(request,"PROJECT SUCCESSFULLY DELETED")
+			return redirect("projects:index")
+		else:
+			messages.error(request,"Form Not Valid")
+			return redirect("projects:index")
+	return redirect("projects:index")
 
 @login_required(login_url='authenticate:login')
 def personnel(request):

@@ -8,6 +8,9 @@ class ProjectAddForm(forms.Form):
 	name = forms.CharField(label='name', max_length = 64)
 	description = forms.CharField(label = 'description', max_length=64)
 
+class ProjectDeleteForm(forms.Form):
+	project = forms.ModelChoiceField(queryset=Project.objects.all(), label=None)
+
 class AssignProjectForm(forms.Form):
 	actionChoices = (
 		('0',u'Add'),

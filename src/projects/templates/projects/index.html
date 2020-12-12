@@ -42,4 +42,13 @@
 			
 		</form>
 	</div>
+	<div>
+		<h2>Delete Project</h2>
+		<form method ="post" action="{% url 'projects:delete' %}">
+			{% csrf_token %}
+			{{form2}}
+			<button type="submit">Delete Project</button>
+			
+		</form>
+	</div>
 {% endblock %}
