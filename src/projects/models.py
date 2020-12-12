@@ -4,7 +4,7 @@ from django.conf import settings
 
 class Project(models.Model):
 	submitter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE , related_name= "projects_created")
-	name = models.CharField(max_length=64)
+	name = models.CharField(unique=True, max_length=64)
 	description = models.CharField(max_length=64)
 
 	def __str__(self):

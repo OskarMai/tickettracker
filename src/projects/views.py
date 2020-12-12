@@ -17,10 +17,19 @@ def index(request):
 		if form.is_valid():
 			name = form.cleaned_data['name']
 			description = form.cleaned_data['description']
-			project = Project(name=name,description=description,submitter=request.user)
-			project.save()
-			messages.success(request, "SUCCESSFULLY ADDED PROJECT")
-			return redirect("projects:index")
+			try:
+				project = Project(name=name,description=description,submitter=request.user)
+				project.save()
+				messages.success(request, "SUCCESSFULLY ADDED PROJECT")
+				return redirect("projects:index")
+			except:
+				messages.error(request,"PROJECT ALREADY EXISTS")
+				context = { 
+				'project_list': project_list,
+				'project_filter': project_filter,
+				'form': ProjectAddForm()
+				}
+				return render(request, "projects/index.html",context)
 		else: #if form is not valid
 			messages.error(request,"INVALID INPUT")
 			context = { 
