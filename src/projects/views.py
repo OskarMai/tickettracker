@@ -12,21 +12,27 @@ def index(request):
 	project_list = Project.objects.all()#all project objects
 	project_filter = ProjectFilter(request.GET , queryset= Project.objects.all())
 	project_list = project_filter.qs
-	context = { 'project_list': project_list, 'project_filter': project_filter
-	}
-	return render(request, "projects/index.html",context)
-
-@login_required(login_url='authenticate:login')
-def add(request):
-	form = ProjectAddForm()
 	if request.method == "POST":
-		project = Project(name=request.POST.get('name'),description=request.POST.get('description'),submitter=request.user)
-		project.save()
-		return redirect("projects:index")
-	context= {
-		'form': form
-	}
-	return render(request, "projects/add.html",context)
+		form = ProjectAddForm(request.POST)
+		if form.is_valid():
+			project = Project(name=request.POST.get('name'),description=request.POST.get('description'),submitter=request.user)
+			project.save()
+			return redirect("projects:index")
+		else:
+			messages.error(request,"INVALID INPUT")
+			context = { 
+			'project_list': project_list,
+			'project_filter': project_filter,
+			'form': ProjectAddForm()
+			}
+			return render(request, "projects/index.html",context)
+	else:
+		context = { 
+			'project_list': project_list,
+			'project_filter': project_filter,
+			'form': ProjectAddForm()
+		}
+		return render(request, "projects/index.html",context)
 
 @login_required(login_url='authenticate:login')
 def personnel(request):

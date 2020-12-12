@@ -30,7 +30,12 @@
 	</div>
 	{%endfor%}
 	</table>
-	<form action="{% url 'projects:add' %}">
-		<button type="submit">Add A Project</button>
-	</form>
+	<div>
+		<form method ="post" action="{% url 'projects:index' %}">
+			{% csrf_token %}
+			{{form}}
+			<button type="submit">Add A Project</button>
+			
+		</form>
+	</div>
 {% endblock %}
