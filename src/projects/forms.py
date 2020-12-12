@@ -4,6 +4,7 @@ from .models import *
 from authenticate.models import NewUser
 
 class ProjectAddForm(forms.Form):
+
 	name = forms.CharField(label='name', max_length = 64)
 	description = forms.CharField(label = 'description', max_length=64)
 

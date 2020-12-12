@@ -1,5 +1,8 @@
 {% extends "authenticate/layout.html" %}
 {% block body %}
+	{%for message in messages%}
+		<b>{{message}}</b>
+	{%endfor%}
 	<h1>This is the project's index</h1>
 	<a href="{% url 'authenticate:home' %}">Homepage</a>
 	<h2>Projects</h2>
@@ -31,6 +34,7 @@
 	{%endfor%}
 	</table>
 	<div>
+		<h2>Add Project</h2>
 		<form method ="post" action="{% url 'projects:index' %}">
 			{% csrf_token %}
 			{{form}}

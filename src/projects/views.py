@@ -15,10 +15,13 @@ def index(request):
 	if request.method == "POST":
 		form = ProjectAddForm(request.POST)
 		if form.is_valid():
-			project = Project(name=request.POST.get('name'),description=request.POST.get('description'),submitter=request.user)
+			name = form.cleaned_data['name']
+			description = form.cleaned_data['description']
+			project = Project(name=name,description=description,submitter=request.user)
 			project.save()
+			messages.success(request, "SUCCESSFULLY ADDED PROJECT")
 			return redirect("projects:index")
-		else:
+		else: #if form is not valid
 			messages.error(request,"INVALID INPUT")
 			context = { 
 			'project_list': project_list,
