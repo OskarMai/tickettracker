@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authenticate',
     'projects',
+    'tickets',
     'django_filters',
 ]
 

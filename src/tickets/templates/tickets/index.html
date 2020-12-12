@@ -1,0 +1,7 @@
+{% extends "authenticate/layout.html" %}
+{% block body %}
+	{%for message in messages%}
+		<b>{{message}}</b>
+	{%endfor%}
+	<h1>Ticket Index Page</h1>
+{% endblock %}
