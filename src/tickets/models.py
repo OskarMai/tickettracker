@@ -25,7 +25,7 @@ class Ticket(models.Model):
 		('0','Bugs/Errors'),
 	)
 	project = models.ForeignKey(Project, on_delete=models.CASCADE,related_name="project_tickets")
-	personnel = models.ForeignKey(ProjectMember, on_delete=models.SET_NULL , related_name="assigned_ticket" , null=True)
+	personnel = models.ForeignKey(ProjectMember, on_delete=models.SET_NULL , related_name="assigned_ticket" , null=True,default=None, blank=True)
 	description = models.CharField(max_length=100)
 	priority = models.CharField(max_length=100,choices= priorityChoices)
 	status = models.CharField(max_length=100, choices = statusChoices)

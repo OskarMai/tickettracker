@@ -5,7 +5,12 @@ from .models import *
 from authenticate.models import NewUser
 from .filters import *
 from .forms import *
+import datetime
 
 # Create your views here.
 def index(request):
-	return render(request, "tickets/index.html")
+	ticket_list = Ticket.objects.all()
+	context={
+		'ticket_list': ticket_list,
+	}
+	return render(request, "tickets/index.html",context)

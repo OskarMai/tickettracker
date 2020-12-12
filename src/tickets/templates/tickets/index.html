@@ -3,5 +3,22 @@
 	{%for message in messages%}
 		<b>{{message}}</b>
 	{%endfor%}
-	<h1>Ticket Index Page</h1>
+	<div><h1>Ticket Index Page</h1></div>
+	<div><h2>List Of Tickets</h2></div>
+	<div>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>ASSIGNED PROJECT</th>
+			</tr>
+		{% for ticket in ticket_list %}
+		<div>
+			<tr>
+				<td>{{ticket.id}}</td>
+				<td>{{ticket.project}}</td>
+				
+			</tr>
+		</div>
+		{%endfor%}
+	</div>
 {% endblock %}
