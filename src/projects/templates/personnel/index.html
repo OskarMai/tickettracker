@@ -4,6 +4,7 @@
 		<b>{{message}}</b>
 	{%endfor%}
 	<h1>List of Users</h1>
+	<a href="{%url 'projects:index'%}">Back to Projects</a>
 	<form method="get">
 		{% csrf_token %}
 		{{user_filter.form}}
@@ -31,7 +32,7 @@
 		</table>
 	</div>
 	<div>
-		<h2>Add Project Members</h2>
+		<h2>Manage Project Members</h2>
 		<form method="post" action="{% url 'projects:personnel' %}">
 			{% csrf_token %}
 			{{form}}

@@ -4,7 +4,8 @@
 		<b>{{message}}</b>
 	{%endfor%}
 	<h1>This is the project's index</h1>
-	<a href="{% url 'authenticate:home' %}">Homepage</a>
+	<a href="{% url 'authenticate:home' %}">Homepage</a><br>
+	<a href="{%url 'projects:personnel'%}">Manage Project Members</a>
 	<h2>Projects</h2>
 	<form method = "get">
 		{% csrf_token %}

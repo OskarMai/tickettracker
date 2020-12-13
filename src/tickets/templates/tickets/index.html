@@ -4,6 +4,7 @@
 		<b>{{message}}</b>
 	{%endfor%}
 	<div><h1>Ticket Index Page</h1></div>
+	<a href="{% url 'authenticate:home' %}">Home</a>
 	<div><h2>List Of Tickets</h2></div>
 	<div>
 		<form method="get">
@@ -24,6 +25,7 @@
 				<th>Submitter</th>
 				<th>Priority</th>
 				<th>Status</th>
+				<th>      </th>
 			</tr>
 		{% for ticket in ticket_list %}
 		<div>
@@ -33,6 +35,7 @@
 				<td>{{ticket.submitter}}</td>
 				<td>{{ticket.priority}}</td>
 				<td>{{ticket.status}}</td>
+				<td><a href="{% url 'tickets:details' ticket.id %}">Details</a></td>
 				
 			</tr>
 		</div>

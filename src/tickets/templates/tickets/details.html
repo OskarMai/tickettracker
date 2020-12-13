@@ -1,0 +1,30 @@
+{% extends "authenticate/layout.html" %}
+{% block body %}
+	<div>
+		<table>
+			<tr>
+				<th>Ticket #</th>
+				<th>Project</th>
+				<th>Submitted by</th>
+				<th>Priority</th>
+				<th>Assigned to</th>
+				<th>Type</th>
+				<th>Description</th>
+				<th>Created</th>
+				<th>Last Edited</th>
+				<th>Status</th>
+			</tr>
+			<tr>
+				<td>{{ticket.id}}</td>
+				<td>{{ticket.project}}</td>
+				<td>{{ticket.submitter}}</td>
+				<td>{{ticket.priority}}</td>
+				<td>{{ticket.personnel}}</td>
+				<td>{{ticket.race}}</td>
+				<td>{{ticket.description}}</td>
+				<td>{{ticket.timecreated}}</td>
+				<td>{{ticket.lastEdited}}</td>
+				<td>{{ticket.status}}</td>
+			</tr>
+		</table>
+{% endblock %}
