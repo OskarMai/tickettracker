@@ -10,7 +10,10 @@ import datetime
 # Create your views here.
 def index(request):
 	ticket_list = Ticket.objects.all()
+	ticket_filter = TicketFilter(request.GET,queryset=ticket_list)
+	ticket_list = ticket_filter.qs
 	context={
 		'ticket_list': ticket_list,
+		'ticket_filter': ticket_filter,
 	}
 	return render(request, "tickets/index.html",context)
