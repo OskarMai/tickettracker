@@ -37,7 +37,13 @@
 						<td>{{ticket.submitter}}</td>
 						<td>{{ticket.priority}}</td>
 						<td>{{ticket.status}}</td>
-						<td><a href="{% url 'tickets:details' ticket.id %}">Details</a></td>
+						<td><ul>
+								<a href="{% url 'tickets:details' ticket.id %}">Details</a>
+							</ul>
+							<ul>
+								<a href="{% url 'tickets:edit' ticket.id %}">Edit</a>
+							</ul>
+						</td>
 					</tr>
 				</div>
 			{%endfor%}

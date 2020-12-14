@@ -10,3 +10,8 @@ class SubmitTicketForm(forms.Form):
 	class Meta:
 		model = Ticket
 		fields = ['project','description']
+
+class EditTicketForm(forms.ModelForm): #creating a master ticket form with all fields shown and only using it to update ticket objects
+	class Meta:
+		model = Ticket
+		fields = '__all__'

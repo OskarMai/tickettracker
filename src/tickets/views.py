@@ -60,3 +60,20 @@ def submit(request):
 	else:
 		messages.error(request,"REQUIRES POST METHOD")
 		return redirect("tickets:index")
+
+@login_required(login_url="authenticate:login")
+def edit(request,ticket_id):
+	ticket = Ticket.objects.get(pk=ticket_id)
+	form = EditTicketForm(instance=ticket)
+	if request.method=="POST":
+		form = EditTicketForm(request.POST, instance=ticket)
+		if form.is_valid():
+			form.save()
+			return redirect("tickets:index")
+		else:
+			messages.error(request,"INVALID TICKET EDIT")
+			return redirect("tickets:index")
+	context={
+		'form':form
+	}
+	return render(request,"tickets/edit.html",context)

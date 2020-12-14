@@ -1,0 +1,15 @@
+{% extends "authenticate/layout.html" %}
+{%block body%}
+	<div>
+		<div>
+			<h1>Edit Ticket</h1>
+			<div>
+				<form method="post" action="">
+					{%csrf_token%}
+					{{form}}
+					<button type='submit'>Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{%endblock%}
