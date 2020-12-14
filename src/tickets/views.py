@@ -64,6 +64,13 @@ def submit(request):
 @login_required(login_url="authenticate:login")
 def edit(request,ticket_id):
 	ticket = Ticket.objects.get(pk=ticket_id)
+	memberList = []
+	for item in ticket.project.medium_project.all():
+		memberList.append(item.member)
+
+	if request.user not in memberList:
+		messages.error(request,"USER DOES NOT HAVE ACCESS TO TICKET #: " + str(ticket_id))
+		return redirect("tickets:index")
 	form = EditTicketForm(instance=ticket)
 	if request.method=="POST":
 		form = EditTicketForm(request.POST, instance=ticket)

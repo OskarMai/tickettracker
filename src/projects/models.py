@@ -18,3 +18,5 @@ class ProjectMember(models.Model):
 	class Meta:
 		unique_together = ["project","member"]
 
+	def __str__(self):
+		return u'{0}'.format(self.member)
