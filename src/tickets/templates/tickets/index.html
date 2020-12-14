@@ -19,26 +19,39 @@
 	</div>
 	<div>
 		<table>
-			<tr>
-				<th>ID</th>
-				<th>Assigned Project</th>
-				<th>Submitter</th>
-				<th>Priority</th>
-				<th>Status</th>
-				<th>      </th>
-			</tr>
-		{% for ticket in ticket_list %}
-		<div>
-			<tr>
-				<td>{{ticket.id}}</td>
-				<td>{{ticket.project}}</td>
-				<td>{{ticket.submitter}}</td>
-				<td>{{ticket.priority}}</td>
-				<td>{{ticket.status}}</td>
-				<td><a href="{% url 'tickets:details' ticket.id %}">Details</a></td>
-				
-			</tr>
-		</div>
-		{%endfor%}
+			<div>
+				<tr>
+					<th>ID</th>
+					<th>Assigned Project</th>
+					<th>Submitter</th>
+					<th>Priority</th>
+					<th>Status</th>
+					<th>      </th>
+				</tr>
+			</div>
+			{% for ticket in ticket_list %}
+				<div>
+					<tr>
+						<td>{{ticket.id}}</td>
+						<td>{{ticket.project}}</td>
+						<td>{{ticket.submitter}}</td>
+						<td>{{ticket.priority}}</td>
+						<td>{{ticket.status}}</td>
+						<td><a href="{% url 'tickets:details' ticket.id %}">Details</a></td>
+					</tr>
+				</div>
+			{%endfor%}
+		</table>
+	</div>
+	<div>
+		<form method="post" action="{%url 'tickets:submit' %}">
+			<h3>Submit a Ticket</h3>
+			{% csrf_token %}
+			{%for field in form%}
+				{{field.label}}: {{field}} <br>
+			{%endfor%}
+			<button type="submit">Submit</button>
+
+		</form>
 	</div>
 {% endblock %}

@@ -16,6 +16,7 @@ def index(request):
 	context={
 		'ticket_list': ticket_list,
 		'ticket_filter': ticket_filter,
+		'form': SubmitTicketForm()
 	}
 	return render(request, "tickets/index.html",context)
 
@@ -30,4 +31,32 @@ def details(request,ticket_id):
 		return render(request, "tickets/details.html",context)
 	except:
 		messages.error(request,"TICKET DOES NOT EXIST")
+		return redirect("tickets:index")
+
+@login_required(login_url='authenticate:login')
+def submit(request):
+	if request.method=="POST":
+		form = SubmitTicketForm(request.POST)
+		if form.is_valid():#adds hidden fields to ticket object
+			try:
+				project = form.cleaned_data['project']
+				description = form.cleaned_data['description']
+				submitter = request.user
+				priority = "9"#lowest priority
+				timeCreated = datetime.datetime.now()
+				race = "Bugs/Errors"
+				status = "Open"
+				ticket = Ticket(project = project, description=description,submitter=submitter,priority=priority,timeCreated=timeCreated,race = race,status = status)
+				ticket.save()
+				messages.success(request,"SUCCESSFULLY SUBMITTED TICKET")
+				return redirect("tickets:index")
+			except:
+				messages.error(request,"INVALID TICKET SUBMISSION FORMAT")
+				return redirect("tickets:index")
+		else:
+			messages.error(request,"INVALID TICKET SUBMISSION FORMAT")
+			return redirect("tickets:index")
+		return redirect("tickets:index")
+	else:
+		messages.error(request,"REQUIRES POST METHOD")
 		return redirect("tickets:index")

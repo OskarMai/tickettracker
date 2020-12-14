@@ -17,12 +17,12 @@ class Ticket(models.Model):
 		
 	)
 	statusChoices = (
-		('0','Closed'),
-		('1','Open'),
+		('Closed','Closed'),
+		('Open','Open'),
 
 	)
 	raceChoices = (
-		('0','Bugs/Errors'),
+		('Bugs/Errors','Bugs/Errors'),
 	)
 	project = models.ForeignKey(Project, on_delete=models.CASCADE,related_name="project_tickets")
 	personnel = models.ForeignKey(ProjectMember, on_delete=models.SET_NULL , related_name="assigned_ticket" , null=True,default=None, blank=True)
