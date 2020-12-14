@@ -22,6 +22,14 @@ def index(request):
 
 @login_required(login_url='authenticate:login')
 def details(request,ticket_id):
+	ticket = Ticket.objects.get(pk=ticket_id)
+	memberList = []
+	for item in ticket.project.medium_project.all():
+		memberList.append(item.member)
+
+	if request.user not in memberList:
+		messages.error(request,"USER DOES NOT HAVE ACCESS TO TICKET #: " + str(ticket_id))
+		return redirect("tickets:index")
 	try:
 
 		ticket = Ticket.objects.get(pk=ticket_id)#find ticket object we got from link
