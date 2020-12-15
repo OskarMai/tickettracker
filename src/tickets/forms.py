@@ -18,3 +18,6 @@ class EditTicketForm(forms.ModelForm): #creating a master ticket form with all f
 
 class FileForm(forms.Form):
 	file = forms.FileField(label='Select a file',)
+
+class CommentForm(forms.Form):
+	message = forms.CharField(max_length = 100)

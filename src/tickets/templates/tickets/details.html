@@ -39,6 +39,33 @@
 		</table>
 	</div>
 	<div>
+		<form method="post" action="{% url 'tickets:comment' ticket.id%}">
+			<h3>Ticket Comments</h3>
+			{%csrf_token%}
+			<div>{{form.as_p}}</div>
+			<button type="submit">Comment</button>
+		</form>
+	</div>
+	<div>
+		<h3>Comments</h3>
+		<div>
+			<table>
+				<tr>
+					<th>Commenter</th>
+					<th>Message</th>
+					<th>Created</th>
+				</tr>
+				{%for comment in comments%}
+					<tr>
+						<td>{{comment.commenter}}</td>
+						<td>{{comment.message}}</td>
+						<td>{{comment.timeCreated}}</td>
+					</tr>
+				{%endfor%}
+			</table>
+		</div>
+	</div>
+	<div>
 		<form method="post" action="{% url 'tickets:upload' ticket.id %}" enctype="multipart/form-data">
 			<h3>Ticket Attachments</h3>
 			{%csrf_token%}

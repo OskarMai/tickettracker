@@ -9,4 +9,5 @@ urlpatterns = [
 	path('submit/',views.submit,name="submit"),
 	path('edit/<int:ticket_id>/',views.edit,name='edit'),
 	path('upload/<int:ticket_id>/',views.upload,name='upload'),
+	path('comment/<int:ticket_id>/',views.comment,name='comment')
 ]

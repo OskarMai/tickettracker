@@ -40,3 +40,9 @@ class Ticket(models.Model):
 class File(models.Model):
 	ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE,related_name="ticket_attachments")
 	file = models.FileField(upload_to='files/%y/%m/%d', blank=True, null=True)
+
+class Comment(models.Model):
+	ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE,related_name="ticket_comments")
+	message = models.CharField(max_length=100)
+	commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null = True)
+	timeCreated = models.DateTimeField(auto_now_add=True)

@@ -25,6 +25,7 @@ def index(request):
 def details(request,ticket_id):
 	ticket = Ticket.objects.get(pk=ticket_id)
 	attachmentsList = ticket.ticket_attachments.all()
+	comments = ticket.ticket_comments.all()
 	memberList = []
 	for item in ticket.project.medium_project.all():
 		memberList.append(item.member)
@@ -39,6 +40,8 @@ def details(request,ticket_id):
 			'ticket':ticket,
 			'form2': FileForm(),
 			'attachmentsList': attachmentsList,
+			'form': CommentForm(),
+			'comments':comments,
 		}
 		return render(request, "tickets/details.html",context)
 	except:
@@ -117,4 +120,24 @@ def upload(request,ticket_id):
 	else:
 		messages.error(request,"POST REQUESTS ONLY")
 		return redirect("tickets:details",ticket_id=ticket_id)
+
+@login_required(login_url="authenticate:login")
+def comment(request, ticket_id):
+	ticket = Ticket.objects.get(pk=ticket_id)
+	if request.method =="POST":
+		form = CommentForm(request.POST)
+		if form.is_valid():
+			try:
+				comment =  Comment(message=request.POST['message'], commenter=request.user, ticket=ticket)
+				comment.save()
+				messages.success(request,"SUCCESSFULLY SUBMITTED COMMENT")
+				return redirect("tickets:details",ticket_id=ticket_id)
+
+			except:
+				messages.error(request,"INVALID COMMENT FORMAT")
+				return redirect("tickets:details",ticket_id=ticket_id)
+		else:
+			messages.error(request,"INVALID COMMENT FORMAT")
+			return redirect("tickets:details",ticket_id=ticket_id)
+	return redirect("tickets:details",ticket_id=ticket_id)
 
