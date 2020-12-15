@@ -46,4 +46,14 @@
 			<button type="submit">Upload</button>
 		</form>
 	</div>
+	<div>
+		<h3>Attachments</h3>
+		<div>
+			<ol>
+				{% for attachment in attachmentsList %}
+					<li>{{attachment.file}}</li>
+				{%endfor%}
+			</ol>
+		</div>
+	</div>
 {% endblock %}

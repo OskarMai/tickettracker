@@ -24,6 +24,7 @@ def index(request):
 @login_required(login_url='authenticate:login')
 def details(request,ticket_id):
 	ticket = Ticket.objects.get(pk=ticket_id)
+	attachmentsList = ticket.ticket_attachments.all()
 	memberList = []
 	for item in ticket.project.medium_project.all():
 		memberList.append(item.member)
@@ -37,6 +38,7 @@ def details(request,ticket_id):
 		context = {
 			'ticket':ticket,
 			'form2': FileForm(),
+			'attachmentsList': attachmentsList,
 		}
 		return render(request, "tickets/details.html",context)
 	except:
