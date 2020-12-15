@@ -107,7 +107,7 @@ def upload(request,ticket_id):
 		if form.is_valid():
 			try:
 				ticket = Ticket.objects.get(pk=ticket_id)
-				file = File(ticket=ticket,file=request.FILES['file'])
+				file = File(ticket=ticket,file=request.FILES['file'],description=request.POST['description'])
 				file.save()
 				messages.success(request,"SUCCESSFULLY ATTACHED FILE TO TICKET")
 				return redirect("tickets:details",ticket_id=ticket_id)
