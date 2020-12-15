@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse
 from .models import *
 from authenticate.models import NewUser
 from .filters import *
@@ -104,14 +105,14 @@ def upload(request,ticket_id):
 				file = File(ticket=ticket,file=request.FILES['file'])
 				file.save()
 				messages.success(request,"SUCCESSFULLY ATTACHED FILE TO TICKET")
-				return redirect("tickets:index")
+				return redirect("tickets:details",ticket_id=ticket_id)
 			except:
-				messages.error(request,"INVALID FILE ATTACHMENT-1")
-				return redirect("tickets:index")
+				messages.error(request,"INVALID FILE ATTACHMENT")
+				return redirect("tickets:details",ticket_id=ticket_id)
 		else:
-			messages.error(request,"INVALID FILE ATTACHMENT-2")
-			return redirect("tickets:index")
+			messages.error(request,"INVALID FILE ATTACHMENT")
+			return redirect("tickets:details",ticket_id=ticket_id)
 	else:
 		messages.error(request,"POST REQUESTS ONLY")
-		return redirect("tickets:index")
+		return redirect("tickets:details",ticket_id=ticket_id)
 

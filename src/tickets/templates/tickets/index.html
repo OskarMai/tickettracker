@@ -1,8 +1,12 @@
 {% extends "authenticate/layout.html" %}
 {% block body %}
-	{%for message in messages%}
-		<b>{{message}}</b>
-	{%endfor%}
+	<div>
+		{%for message in messages%}
+			<div>
+				<b>{{message}}</b>
+			</div>
+		{%endfor%}
+	</div>
 	<div><h1>Ticket Index Page</h1></div>
 	<a href="{% url 'authenticate:home' %}">Home</a>
 	<div><h2>List Of Tickets</h2></div>

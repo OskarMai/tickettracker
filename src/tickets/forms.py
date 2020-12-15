@@ -17,4 +17,4 @@ class EditTicketForm(forms.ModelForm): #creating a master ticket form with all f
 		fields = '__all__'
 
 class FileForm(forms.Form):
-	file = forms.FileField(label='Select a file', help_text='max 42 MB')
+	file = forms.FileField(label='Select a file',)

@@ -1,8 +1,12 @@
 {% extends "authenticate/layout.html" %}
 {% block body %}
-	{%for message in messages%}
-		<b>{{message}}</b>
-	{%endfor%}
+	<div>
+		{%for message in messages%}
+			<div>
+				<b>{{message}}</b>
+			</div>
+		{%endfor%}
+	</div>
 	<h1>This is the project's index</h1>
 	<a href="{% url 'authenticate:home' %}">Homepage</a><br>
 	<a href="{%url 'projects:personnel'%}">Manage Project Members</a>

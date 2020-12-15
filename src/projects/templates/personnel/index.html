@@ -1,8 +1,12 @@
 {% extends "authenticate/layout.html" %}
 {% block body %}
-	{%for message in messages%}
-		<b>{{message}}</b>
-	{%endfor%}
+	<div>
+		{%for message in messages%}
+			<div>
+				<b>{{message}}</b>
+			</div>
+		{%endfor%}
+	</div>
 	<h1>List of Users</h1>
 	<a href="{%url 'projects:index'%}">Back to Projects</a>
 	<form method="get">

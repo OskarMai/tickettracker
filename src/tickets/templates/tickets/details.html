@@ -1,6 +1,16 @@
 {% extends "authenticate/layout.html" %}
 {% block body %}
 	<div>
+		{%for message in messages%}
+			<div>
+				<b>{{message}}</b>
+			</div>
+		{%endfor%}
+	</div>
+	<div>
+		<h1>Ticket Details</h1>
+	</div>
+	<div>
 		<table>
 			<tr>
 				<th>Ticket #</th>
@@ -32,7 +42,7 @@
 		<form method="post" action="{% url 'tickets:upload' ticket.id %}" enctype="multipart/form-data">
 			<h3>Ticket Attachments</h3>
 			{%csrf_token%}
-			{{form2}}
+			{{form2.as_p}}
 			<button type="submit">Upload</button>
 		</form>
 	</div>
