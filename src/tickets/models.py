@@ -33,3 +33,10 @@ class Ticket(models.Model):
 	race = models.CharField(max_length=100,choices = raceChoices)
 	timeCreated = models.DateTimeField(auto_now_add=True)
 	lastEdited = models.DateTimeField(default = datetime.datetime(2020,1,1,0,0,0))
+
+	def __str__(self):
+		return u'{0}'.format("Ticket #: "+ str(self.id))
+
+class File(models.Model):
+	ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE,related_name="ticket_attachments")
+	file = models.FileField(upload_to='files/%y/%m/%d', blank=True, null=True)

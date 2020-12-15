@@ -27,4 +27,13 @@
 				<td>{{ticket.status}}</td>
 			</tr>
 		</table>
+	</div>
+	<div>
+		<form method="post" action="{% url 'tickets:upload' ticket.id %}" enctype="multipart/form-data">
+			<h3>Ticket Attachments</h3>
+			{%csrf_token%}
+			{{form2}}
+			<button type="submit">Upload</button>
+		</form>
+	</div>
 {% endblock %}

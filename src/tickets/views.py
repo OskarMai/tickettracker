@@ -16,7 +16,7 @@ def index(request):
 	context={
 		'ticket_list': ticket_list,
 		'ticket_filter': ticket_filter,
-		'form': SubmitTicketForm()
+		'form': SubmitTicketForm(),
 	}
 	return render(request, "tickets/index.html",context)
 
@@ -34,7 +34,8 @@ def details(request,ticket_id):
 
 		ticket = Ticket.objects.get(pk=ticket_id)#find ticket object we got from link
 		context = {
-			'ticket':ticket
+			'ticket':ticket,
+			'form2': FileForm(),
 		}
 		return render(request, "tickets/details.html",context)
 	except:
@@ -92,3 +93,25 @@ def edit(request,ticket_id):
 		'form':form
 	}
 	return render(request,"tickets/edit.html",context)
+
+@login_required(login_url="authenticate:login")
+def upload(request,ticket_id):
+	if request.method== "POST":
+		form = FileForm(request.POST,request.FILES)
+		if form.is_valid():
+			try:
+				ticket = Ticket.objects.get(pk=ticket_id)
+				file = File(ticket=ticket,file=request.FILES['file'])
+				file.save()
+				messages.success(request,"SUCCESSFULLY ATTACHED FILE TO TICKET")
+				return redirect("tickets:index")
+			except:
+				messages.error(request,"INVALID FILE ATTACHMENT-1")
+				return redirect("tickets:index")
+		else:
+			messages.error(request,"INVALID FILE ATTACHMENT-2")
+			return redirect("tickets:index")
+	else:
+		messages.error(request,"POST REQUESTS ONLY")
+		return redirect("tickets:index")
+
