@@ -1,0 +1,24 @@
+{% extends "authenticate/layout.html" %}
+{% block body %}
+	<div>
+		{%for message in messages%}
+			<div>
+				<b>{{message}}</b>
+			</div>
+		{%endfor%}
+	</div>
+<div>
+	<h1>Edit User Profile</h1>
+	<form method = "post" action="{% url 'user_profile:edit' %}" enctype="multipart/form-data">
+		{%csrf_token%}
+		<div>
+			{%for field in form%}
+				<div>
+					{{field.label}}: {{field}}
+				</div>
+			{%endfor%}
+		</div>
+		<button type="submit">Submit</button>
+	</form>
+</div>
+{% endblock %}

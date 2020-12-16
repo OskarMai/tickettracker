@@ -1,0 +1,21 @@
+{% extends "authenticate/layout.html" %}
+{% block body %}
+	<div>
+		{%for message in messages%}
+			<div>
+				<b>{{message}}</b>
+			</div>
+		{%endfor%}
+	</div>
+<div>
+	<h1>This is user_profile</h1>
+	<div>Username: {{user.user_name}}</div>
+	<div>Email: {{user.email}}</div>
+	<div>First Name: {{user.first_name}}</div>
+	<div>About: {{user.about}}</div>
+	<div>Profile Picture: {{user.pfp}}</div>
+	<div><img src="{{user.pfp.url}}"></div>
+</div>
+<div><a href="{% url 'user_profile:edit' %}">Edit Profile</a></div>
+<div><a href="{% url 'authenticate:password_change' %}">Change Password</a></div>
+{% endblock %}

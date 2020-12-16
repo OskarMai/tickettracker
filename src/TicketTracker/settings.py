@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'authenticate',
     'projects',
     'tickets',
+    'user_profile',
     'django_filters',
 ]
 
