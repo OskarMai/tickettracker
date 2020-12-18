@@ -4,7 +4,8 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import CreateUserForm
-from .decorators import unauthenticated_user
+from .decorators import *
+from django.contrib.auth.models import Group
 # Create your views here.
 @login_required(login_url='authenticate:login')#deocrator that redirects users to login page if they are not logged in
 def home(request):
@@ -34,6 +35,7 @@ def loginPage(request):
 		user = authenticate(email=email,password= password)
 		if user is not None:
 			login(request,user)
+
 			return redirect("/")
 		else:
 			messages.info(request,"Incorrect Login Information")

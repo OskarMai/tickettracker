@@ -5,9 +5,12 @@ from .models import *
 from authenticate.models import NewUser
 from .filters import *
 from .forms import *
+from authenticate.decorators import *
+from django.contrib.auth.models import Group
 # Create your views here.
 
 @login_required(login_url='authenticate:login')#decorator that does not allow access to views when you are not logged in
+@allowed_users(allowed_roles = ['admin'])
 def index(request):
 	project_list = Project.objects.all()#all project objects
 	project_filter = ProjectFilter(request.GET , queryset= Project.objects.all())
@@ -50,6 +53,7 @@ def index(request):
 		return render(request, "projects/index.html",context)
 
 @login_required(login_url='authenticate:login')
+@allowed_users(allowed_roles = ['admin'])
 def delete(request):
 	if request.method=="POST":
 		form = ProjectDeleteForm(request.POST)
@@ -64,6 +68,7 @@ def delete(request):
 	return redirect("projects:index")
 
 @login_required(login_url='authenticate:login')
+@allowed_users(allowed_roles = ['admin'])
 def personnel(request):
 	user_list = NewUser.objects.all()#list of all users objects
 	user_filter = UserFilter(request.GET,queryset=user_list)

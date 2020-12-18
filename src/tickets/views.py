@@ -7,9 +7,12 @@ from authenticate.models import NewUser
 from .filters import *
 from .forms import *
 import datetime
+from authenticate.decorators import *
+from django.contrib.auth.models import Group
 
 # Create your views here.
 @login_required(login_url='authenticate:login')
+@allowed_users(allowed_roles = ['admin','developer','submitter'])
 def index(request):
 	ticket_list = Ticket.objects.all()
 	ticket_filter = TicketFilter(request.GET,queryset=ticket_list)
@@ -22,6 +25,7 @@ def index(request):
 	return render(request, "tickets/index.html",context)
 
 @login_required(login_url='authenticate:login')
+@allowed_users(allowed_roles = ['admin','developer'])
 def details(request,ticket_id):
 	ticket = Ticket.objects.get(pk=ticket_id)
 	attachmentsList = ticket.ticket_attachments.all()
@@ -49,6 +53,7 @@ def details(request,ticket_id):
 		return redirect("tickets:index")
 
 @login_required(login_url='authenticate:login')
+@allowed_users(allowed_roles = ['admin','developer','submitter'])
 def submit(request):
 	if request.method=="POST":
 		form = SubmitTicketForm(request.POST)
@@ -77,6 +82,7 @@ def submit(request):
 		return redirect("tickets:index")
 
 @login_required(login_url="authenticate:login")
+@allowed_users(allowed_roles = ['admin','developer'])
 def edit(request,ticket_id):
 	ticket = Ticket.objects.get(pk=ticket_id)
 	memberList = []
@@ -101,6 +107,7 @@ def edit(request,ticket_id):
 	return render(request,"tickets/edit.html",context)
 
 @login_required(login_url="authenticate:login")
+@allowed_users(allowed_roles = ['admin','developer'])
 def upload(request,ticket_id):
 	if request.method== "POST":
 		form = FileForm(request.POST,request.FILES)
@@ -122,6 +129,7 @@ def upload(request,ticket_id):
 		return redirect("tickets:details",ticket_id=ticket_id)
 
 @login_required(login_url="authenticate:login")
+@allowed_users(allowed_roles = ['admin','developer'])
 def comment(request, ticket_id):
 	ticket = Ticket.objects.get(pk=ticket_id)
 	if request.method =="POST":

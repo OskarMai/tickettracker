@@ -3,9 +3,12 @@ from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from authenticate.decorators import *
+from django.contrib.auth.models import Group
 
 # Create your views here.
 @login_required(login_url='authenticate:login')
+@allowed_users(allowed_roles = ['admin','developer','submitter'])
 def index(request):
 	user = request.user
 	#if request.method=="POST":
@@ -17,6 +20,7 @@ def index(request):
 
 
 @login_required(login_url='authenticate:login')
+@allowed_users(allowed_roles = ['admin','developer','submitter'])
 def edit(request):
 	user = request.user
 	form = EditProfileForm(instance = user)
