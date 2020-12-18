@@ -17,8 +17,10 @@ def registerPage(request):
 	if request.method == "POST":
 		form = CreateUserForm(request.POST)
 		if form.is_valid():
-			form.save()
+			user = form.save()
 			username = form.cleaned_data.get('user_name')
+			group = Group.objects.get(name='submitter')
+			user.groups.add(group)
 			messages.success(request,"Successfully registered " + username)
 			return redirect("authenticate:login")
 	context = {
