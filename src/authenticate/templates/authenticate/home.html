@@ -3,8 +3,4 @@
 {% block body%}
 	<h1>This is the home page </h1>
 	<p>Current User is: {{user.first_name}}</p>
-	<a href= "{% url 'projects:index' %}">Projects</a><br>
-	<a href = "{% url 'tickets:index' %}">Tickets</a><br>
-	<div><a href="{% url 'authenticate:password_change' %}">Change Password</a></div>
-	<div><a href="{% url 'authenticate:logout' %}">Log out</a></div>
 {%endblock%}

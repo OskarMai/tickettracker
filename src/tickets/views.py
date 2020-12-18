@@ -78,8 +78,10 @@ def submit(request):
 			return redirect("tickets:index")
 		return redirect("tickets:index")
 	else:
-		messages.error(request,"REQUIRES POST METHOD")
-		return redirect("tickets:index")
+		context = {
+			'form':SubmitTicketForm(),
+		}
+		return render(request,"tickets/submit.html",context)
 
 @login_required(login_url="authenticate:login")
 @allowed_users(allowed_roles = ['admin','developer'])

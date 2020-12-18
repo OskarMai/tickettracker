@@ -70,7 +70,7 @@ def delete(request):
 @login_required(login_url='authenticate:login')
 @allowed_users(allowed_roles = ['admin'])
 def personnel(request):
-	user_list = NewUser.objects.all()#list of all users objects
+	user_list = NewUser.objects.filter(groups__name__in=['admin','developer'])#list of all users objects
 	user_filter = UserFilter(request.GET,queryset=user_list)
 	user_list= user_filter.qs 
 	if request.method == "POST":
