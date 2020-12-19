@@ -6,13 +6,17 @@
 <body>
 	<div>
 		<ul>
-			<li><a href="{%url 'authenticate:home' %}">Home</a></li>
-			<li><a href="{%url 'projects:index' %}">Projects</a></li>
-			<li><a href="{%url 'projects:personnel' %}">Manage Members</a></li>
-			<li><a href="{%url 'tickets:index' %}">Tickets</a></li>
-			<li><a href="{%url 'user_profile:index' %}">User Profile</a></li>
-			<li><a href="{%url 'tickets:submit' %}">Submit Ticket</a></li>
-			<li><a href="{%url 'authenticate:logout' %}">Log Out</a></li>
+			{%if request.user.is_superuser%}
+				<li><a href="{%url 'authenticate:home' %}">Home</a></li>
+				<li><a href="{%url 'projects:index' %}">Projects</a></li>
+				<li><a href="{%url 'projects:personnel' %}">Manage Members</a></li>
+			{%endif%}
+			{%if request.user.is_staff%}
+				<li><a href="{%url 'tickets:index' %}">Tickets</a></li>
+			{%endif%}
+				<li><a href="{%url 'user_profile:index' %}">User Profile</a></li>
+				<li><a href="{%url 'tickets:submit' %}">Submit Ticket</a></li>
+				<li><a href="{%url 'authenticate:logout' %}">Log Out</a></li>
 
 		</ul>
 	</div>

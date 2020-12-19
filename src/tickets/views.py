@@ -12,7 +12,7 @@ from django.contrib.auth.models import Group
 
 # Create your views here.
 @login_required(login_url='authenticate:login')
-@allowed_users(allowed_roles = ['admin','developer','submitter'])
+@allowed_users(allowed_roles = ['admin','developer',])
 def index(request):
 	ticket_list = Ticket.objects.all()
 	ticket_filter = TicketFilter(request.GET,queryset=ticket_list)
@@ -69,13 +69,21 @@ def submit(request):
 				ticket = Ticket(project = project, description=description,submitter=submitter,priority=priority,timeCreated=timeCreated,race = race,status = status)
 				ticket.save()
 				messages.success(request,"SUCCESSFULLY SUBMITTED TICKET")
+				if request.user.groups.all()[0].name=='submitter':
+					return redirect("tickets:submit")
 				return redirect("tickets:index")
 			except:
 				messages.error(request,"INVALID TICKET SUBMISSION FORMAT")
+				if request.user.groups.all()[0].name=='submitter':
+					return redirect("tickets:submit")
 				return redirect("tickets:index")
 		else:
 			messages.error(request,"INVALID TICKET SUBMISSION FORMAT")
+			if request.user.groups.all()[0].name=='submitter':
+				return redirect("tickets:submit")
 			return redirect("tickets:index")
+		if request.user.groups.all()[0].name=='submitter':
+			return redirect("tickets:submit")
 		return redirect("tickets:index")
 	else:
 		context = {

@@ -6,7 +6,13 @@
 			<div>
 				<form method="post" action="">
 					{%csrf_token%}
-					{{form}}
+					{%for field in form%}
+						<div>
+							{{field.label}}: {{field}}
+						</div>
+						<br>
+					{%endfor%}
+					
 					<button type='submit'>Submit</button>
 				</form>
 			</div>
