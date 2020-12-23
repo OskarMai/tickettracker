@@ -10,7 +10,7 @@
 		{%endfor%}
 	</div>
 	<div class="card-body text-white">
-		<h2 class="card-title text-center">Register</h2>
+		<h1 class="card-title text-center">Register</h1>
 		<form method="post" action="{% url 'authenticate:register' %}">
 			{% csrf_token %}
 			<div class="form-group">
@@ -44,6 +44,6 @@
 		</div>
 	</div>
 	<div class="text-center">
-		<a href = "{% url 'authenticate:login'%}" >Already have an account?</a>
+		<a class="card-link"href = "{% url 'authenticate:login'%}" >Already have an account?</a>
 	</div>
 {%endblock%}
