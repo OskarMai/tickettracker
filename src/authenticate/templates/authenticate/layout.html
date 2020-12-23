@@ -1,10 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<stlye>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" type= "text/css" href="{% static '/css/style.css' %}">
+	</stlye>
 </head>
 <body>
-	<div>
+	<div id="nav">
 		<ul>
 			{%if request.user.is_superuser%}
 				<li><a href="{%url 'authenticate:home' %}">Home</a></li>
@@ -20,7 +24,10 @@
 
 		</ul>
 	</div>
-	{% block body%}
-	{%endblock%}
+	<div id="main">
+		{% block body%}
+		{%endblock%}
+	</div>
 </body>
 </html>
+
