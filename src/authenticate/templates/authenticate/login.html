@@ -1,8 +1,9 @@
 {% extends "authenticate/layout2.html" %}
 
 {% block body%}
-	<h1> This is the login page </h1>
-	
+	<div>
+		<h1 class="card-title text-center text-white"> Login </h1>
+	</div>
 	<div>
 		{%for message in messages%}
 			<div>
@@ -10,14 +11,19 @@
 			</div>
 		{%endfor%}
 	</div>
+	<div class="card-body text-white text-center">
+		<form method= "post" action = "{% url 'authenticate:login' %}">
+			{% csrf_token %}
+			<div class="form-group">
+				Email: <input type ="text" placeholder = "email" name= "email">
+			</div>
+			
+			<div class="form-group">
+				Password: <input type ="password" placeholder = "password" name= "password">
+			</div>
 
-	<form method= "post" action = "{% url 'authenticate:login' %}">
-		{% csrf_token %}
-		<div>Email: <input type ="text" placeholder = "email" name= "email"></div>
-		
-		<div>Password: <input type ="password" placeholder = "password" name= "password"></div>
-
-		<input type= "submit" value="submit">
-	</form>
-	<a href = "{% url 'authenticate:register' %}">Don't have an account? Register here!</a>
+			<input class="btn btn-secondary" type= "submit" value="submit">
+		</form>
+		<a class = "card-link" href = "{% url 'authenticate:register' %}">Don't have an account? Register here!</a>
+	</div>
 {%endblock%}

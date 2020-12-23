@@ -1,6 +1,7 @@
 {% extends "authenticate/layout2.html" %}
 
 {% block body%}
+
 	<div>
 		{%for message in messages%}
 			<div>
@@ -8,35 +9,41 @@
 			</div>
 		{%endfor%}
 	</div>
-	<h2>Please Register below</h2>
-	<form method="post" action="{% url 'authenticate:register' %}">
-		{% csrf_token %}
-		<div>
-			{{ form.email.label }}
-			{{ form.email }}
-		</div>
-		<div>
-			{{ form.user_name.label }}
-			{{ form.user_name }}
-		</div>
-		<div>
-			{{ form.first_name.label }}
-			{{ form.first_name }}
-		</div>
-		<div>
-			{{ form.password1.label }}
-			{{ form.password1 }}
-		</div>
-		<div>
-			{{ form.password2.label }}
-			{{ form.password2 }}
-		</div>
+	<div class="card-body text-white">
+		<h2 class="card-title text-center">Register</h2>
+		<form method="post" action="{% url 'authenticate:register' %}">
+			{% csrf_token %}
+			<div class="form-group">
+				{{ form.email.label }}
+				{{ form.email }}
+			</div>
+			<div class="form-group">
+				{{ form.user_name.label }}
+				{{ form.user_name }}
+			</div>
+			<div class="form-group">
+				{{ form.first_name.label }}
+				{{ form.first_name }}
+			</div>
+			<div class="form-group">
+				{{ form.password1.label }}
+				{{ form.password1 }}
+			</div>
+			<div class="form-group">
+				{{ form.password2.label }}
+				{{ form.password2 }}
+			</div>
 
-		<input type = "submit" value = "submit"> 
-	</form>
+			<div class="text-center">
+				<input class="btn btn-secondary" type = "submit" value = "submit"> 
+			</div>
+		</form>
 
-	<div>
-		{{form.errors}}
+		<div>
+			{{form.errors}}
+		</div>
 	</div>
-	<div><a href = "{% url 'authenticate:login'%}" >Already have an account?</a></div>
+	<div class="text-center">
+		<a href = "{% url 'authenticate:login'%}" >Already have an account?</a>
+	</div>
 {%endblock%}
