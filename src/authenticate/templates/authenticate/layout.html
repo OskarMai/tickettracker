@@ -6,10 +6,15 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel="stylesheet" type= "text/css" href="{% static '/css/style.css' %}">
 	</stlye>
+	<script type="text/javascript" src="{% static '/javascript/currentLink.js' %}"></script>
 </head>
 <body>
-	<div id="nav">
+	<div id="nav" class="shadow">
 		<ul>
+			<div class="shadow p-3 mb-5 rounded">
+				<img src="{%static 'logo.png' %}">
+				<p>Welcome, {{user.first_name}}</p>
+			</div>
 			{%if request.user.is_superuser%}
 				<li><a href="{%url 'authenticate:home' %}">Home</a></li>
 				<li><a href="{%url 'projects:index' %}">Projects</a></li>
@@ -21,10 +26,14 @@
 				<li><a href="{%url 'user_profile:index' %}">User Profile</a></li>
 				<li><a href="{%url 'tickets:submit' %}">Submit Ticket</a></li>
 				<li><a href="{%url 'authenticate:logout' %}">Log Out</a></li>
-
 		</ul>
 	</div>
-	<div id="main">
+	<div id="topbar" class="shadow p-3 mb-5 bg-white rounded">
+		<div>
+			<h1>Logged in as {{user.user_name}}</h1>
+		</div>
+	</div>
+	<div id="main" class="justify-content-center">
 		{% block body%}
 		{%endblock%}
 	</div>

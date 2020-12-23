@@ -1,13 +1,19 @@
 #nav{
 	height:100%;
-	width:160px;
+	width:250px;
 	position:fixed;
 	z-index:1;
 	top:0;
 	left:0;
 	overflow:hidden;
-	padding-top:20px;
-	background-color:orange;
+	background-color:white;
+	text-align: center;
+}
+#nav ul img{
+	height:50%;
+	width:50%;
+	right:0;
+	background-color: orange;
 }
 #nav ul {
   margin: 0px;
@@ -19,17 +25,25 @@
 #nav ul li a {
   padding: 15px;
   display: block;
-  background-color:orange; 
-  color: white;
+  background-color:white; 
+  color: orange;
   tex-decoration:none;
+  transition: .5s background-color;
 }
 #nav ul li a:hover {
 	background-color:#00ccff;
 	color:white;
 	text-decoration:none;
 }
+#topbar{
+	background-color:white;
+	margin-left:250px;
+	height:80px;
+	width:100%;
+}
+
 #main{
-	margin-left:160px;
+	margin-left:250px;
 	padding:0px 10px;
 }
 @media screen and (max-height: 450px){
