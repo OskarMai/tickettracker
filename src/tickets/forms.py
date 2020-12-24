@@ -6,7 +6,8 @@ from .models import *
 class SubmitTicketForm(forms.Form):
 	project = forms.ModelChoiceField(queryset= Project.objects.all(), label=None)
 	description = forms.CharField(max_length=1000, label="Describe the issue")
-
+	project.widget.attrs['class']='form-control col-sm-12'
+	description.widget.attrs['class']='form-control col-sm-12'
 	class Meta:
 		model = Ticket
 		fields = ['project','description']

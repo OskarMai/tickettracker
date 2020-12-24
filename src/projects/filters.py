@@ -24,11 +24,11 @@ class ProjectFilter(django_filters.FilterSet):
 class UserFilter(django_filters.FilterSet):
 	username = CharFilter(field_name="user_name", lookup_expr="icontains",widget=forms.Select(
 		attrs={
-			'class':'form-control'
+			'class':'form-control col-sm-3 ml-2 mr-2'
 		}))
 	email = CharFilter(field_name="email", lookup_expr="icontains",widget=forms.TextInput(
 		attrs={
-			'class':'form-control'
+			'class':'form-control col-sm-3 ml-2'
 		}))
 	class Meta:
 		model: NewUser

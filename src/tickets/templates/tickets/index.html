@@ -3,66 +3,74 @@
 	<div>
 		{%for message in messages%}
 			<div>
-				<b>{{message}}</b>
+				<b class="text-danger">{{message}}</b>
 			</div>
 		{%endfor%}
 	</div>
-	<div><h1>Ticket Index Page</h1></div>
-	<a href="{% url 'authenticate:home' %}">Home</a>
-	<div><h2>List Of Tickets</h2></div>
-	<div>
-		<form method="get">
-			{% csrf_token %}
-			Filter by 
-			{% for field in ticket_filter.form %}
-				{{field.label}}: {{ field }}
-			{% endfor %}
-			<button type="submit">Submit</button>
-			<br>
+	<div class="form_card">
+		<form method="post" action="{% url 'tickets:submit' %}">
+			<h2 class="text-center">Submit a Ticket</h2>
+			<div class="d-flex align-items-stretch justify-content-center">
+				{% csrf_token %}
+				{%for field in form%}
+					<span class="m-2">
+						{{field.label}}: {{field}}
+					</span>
+				{%endfor%}
+				<button class="btn btn-outline-warning" type="submit">Submit</button>
+			</div>
 		</form>
 	</div>
-	<div>
-		<table>
-			<div>
-				<tr>
-					<th>ID</th>
-					<th>Assigned Project</th>
-					<th>Submitter</th>
-					<th>Priority</th>
-					<th>Status</th>
-					<th>      </th>
-				</tr>
-			</div>
-			{% for ticket in ticket_list %}
+	<div class="table_card">
+		<div>
+			<h2 class="text-center">Tickets List</h2>
+		</div>
+		<div>
+			<form method="get">
+				{% csrf_token %}
+				<div class="d-flex align-items-stretch justify-content-center">
+					{% for field in ticket_filter.form %}
+						<span class="ml-2 mr-2 mb-2">
+							{{field.label}}: {{ field }}
+						</span>
+					{% endfor %}
+					<button  class="btn btn-outline-warning ml-2 mb-2" type="submit">Submit</button>
+					<br>
+				</div>
+			</form>
+		</div>
+		<div>
+			<table class="table">
 				<div>
 					<tr>
-						<td>{{ticket.id}}</td>
-						<td>{{ticket.project}}</td>
-						<td>{{ticket.submitter}}</td>
-						<td>{{ticket.priority}}</td>
-						<td>{{ticket.status}}</td>
-						<td><ul>
-								<a href="{% url 'tickets:details' ticket.id %}">Details</a>
-							</ul>
-							<ul>
-								<a href="{% url 'tickets:edit' ticket.id %}">Edit</a>
-							</ul>
-						</td>
+						<th scope="col">ID</th>
+						<th scope="col">Assigned Project</th>
+						<th scope="col">Submitter</th>
+						<th scope="col">Priority</th>
+						<th scope="col">Status</th>
+						<th scope="col">      </th>
 					</tr>
 				</div>
-			{%endfor%}
-		</table>
-	</div>
-	<div>
-		<form method="post" action="{% url 'tickets:submit' %}">
-			<h3>Submit a Ticket</h3>
-			{% csrf_token %}
-			{%for field in form%}
-				{{field.label}}: {{field}} <br>
-			{%endfor%}
-			<button type="submit">Submit</button>
-
-		</form>
+				{% for ticket in ticket_list %}
+					<div>
+						<tr>
+							<td scope="col">{{ticket.id}}</td>
+							<td scope="row">{{ticket.project}}</td>
+							<td scope="row">{{ticket.submitter}}</td>
+							<td scope="row">{{ticket.priority}}</td>
+							<td scope="row">{{ticket.status}}</td>
+							<td scope="row"><ul>
+									<a href="{% url 'tickets:details' ticket.id %}">Details</a>
+								</ul>
+								<ul>
+									<a href="{% url 'tickets:edit' ticket.id %}">Edit</a>
+								</ul>
+							</td>
+						</tr>
+					</div>
+				{%endfor%}
+			</table>
+		</div>
 	</div>
 
 {% endblock %}

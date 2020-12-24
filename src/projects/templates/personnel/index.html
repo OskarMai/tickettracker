@@ -4,45 +4,51 @@
 		<div>
 			{%for message in messages%}
 				<div>
-					<b>{{message}}</b>
+					<b class="text-danger">{{message}}</b>
 				</div>
 			{%endfor%}
 		</div>
-		<h1>List of Users</h1>
-		<a href="{%url 'projects:index'%}">Back to Projects</a>
-		<form method="get">
-			{% csrf_token %}
-			{{user_filter.form}}
-			<button type="submit">Submit</button>
-		</form>
-		<div>
-			<table>
-				<tr>
-					<th>Username</th>
-					<th>Email</th>
-					<th>Projects Assigned</th>
-				</tr>
-			{% for user in user_list %}
-				<tr>
-					<td>{{user.user_name}}</td>
-					<td>{{user.email}}</td>
-					<td>
-					{% for instance in user.medium_member.all %}
-						{{instance.project.name}},
-					{%endfor%}
-					</td>
-				</tr>
+		<div class="d-flex align-items-stretch">
+			<div class="table_card col-sm-7 m-2">
+				<h1 class="text-center">List of Users</h1>
+				<form method="get">
+					{% csrf_token %}
+					<div class="d-flex align-items-stretch">
+						{{user_filter.form}}
+						<button  class="btn btn-outline-warning m-2" type="submit">Submit</button>
+					</div>
+				</form>
+				<div>
+					<table class="table">
+						<tr>
+							<th scope="col">Username</th>
+							<th scope="col">Email</th>
+							<th scope="col">Projects Assigned</th>
+						</tr>
+					{% for user in user_list %}
+						<tr>
+							<td scope="row">{{user.user_name}}</td>
+							<td>{{user.email}}</td>
+							<td>
+							{% for instance in user.medium_member.all %}
+								{{instance.project.name}},
+							{%endfor%}
+							</td>
+						</tr>
 
-			{%endfor%}
-			</table>
-		</div>
-		<div>
-			<h2>Manage Project Members</h2>
-			<form method="post" action="{% url 'projects:personnel' %}">
-				{% csrf_token %}
-				{{form}}
-				<button type="submit">Submit</button>
-			</form>
+					{%endfor%}
+					</table>
+				</div>
+			</div>
+
+			<div class="form_card col-sm-4 m-2">
+				<h2 class="text-center">Manage Project Members</h2>
+				<form method="post" action="{% url 'projects:personnel' %}">
+					{% csrf_token %}
+					{{form}}
+					<button class="btn btn-outline-warning m-2" type="submit">Submit</button>
+				</form>
+			</div>
 		</div>
 	</div>
 {% endblock %}

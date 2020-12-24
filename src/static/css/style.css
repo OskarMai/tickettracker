@@ -21,7 +21,7 @@ html{
 	width: 100%;
 	margin-top: 10px;
 	margin-bottom: auto;
-	background: #ffbd66;
+	background: white;
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -36,7 +36,7 @@ html{
 	width: 350;
 	margin-top: 10px;
 	margin-bottom: auto;
-	background: #ffbd66;
+	background: white;
 	position: relative;
 	display: flex;
 	justify-content: center;
