@@ -1,19 +1,20 @@
 {% extends "authenticate/layout.html" %}
 {%block body%}
-	<div>
-		<div>
-			<h1>Edit Ticket</h1>
+	<div class="d-flex justify-content-center">
+		<div class="user_card text-center text-white col-sm-9">
+			<h1 class="card-title">Edit Ticket</h1>
 			<div>
 				<form method="post" action="">
 					{%csrf_token%}
-					{%for field in form%}
-						<div>
-							{{field.label}}: {{field}}
-						</div>
-						<br>
-					{%endfor%}
-					
-					<button type='submit'>Submit</button>
+					<div>
+						{%for field in form%}
+							<div>
+								{{field.label}}: {{field}}
+							</div>
+							<br>
+						{%endfor%}
+					</div>
+					<button class="btn btn-outline-light"type='submit'>Submit</button>
 				</form>
 			</div>
 		</div>

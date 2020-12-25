@@ -7,80 +7,103 @@
 			</div>
 		{%endfor%}
 	</div>
-	<div>
-		<h1>Ticket Details</h1>
-	</div>
-	<div>
-		<table>
-			<tr>
-				<th>Ticket #</th>
-				<th>Project</th>
-				<th>Submitted by</th>
-				<th>Priority</th>
-				<th>Assigned to</th>
-				<th>Type</th>
-				<th>Description</th>
-				<th>Created</th>
-				<th>Last Edited</th>
-				<th>Status</th>
-			</tr>
-			<tr>
-				<td>{{ticket.id}}</td>
-				<td>{{ticket.project}}</td>
-				<td>{{ticket.submitter}}</td>
-				<td>{{ticket.priority}}</td>
-				<td>{{ticket.personnel}}</td>
-				<td>{{ticket.race}}</td>
-				<td>{{ticket.description}}</td>
-				<td>{{ticket.timecreated}}</td>
-				<td>{{ticket.lastEdited}}</td>
-				<td>{{ticket.status}}</td>
-			</tr>
-		</table>
-	</div>
-	<div>
-		<form method="post" action="{% url 'tickets:comment' ticket.id%}">
-			<h3>Ticket Comments</h3>
-			{%csrf_token%}
-			<div>{{form.as_p}}</div>
-			<button type="submit">Comment</button>
-		</form>
-	</div>
-	<div>
-		<h3>Comments</h3>
+	<div class="table_card">
 		<div>
-			<table>
+			<h2 class="card-title text-center">Ticket Details</h2>
+		</div>
+		<div>
+			<table class="table">
 				<tr>
-					<th>Commenter</th>
-					<th>Message</th>
-					<th>Created</th>
+					<th scope="col">Ticket #</th>
+					<th scope="col">Project</th>
+					<th scope="col">Submitted by</th>
+					<th scope="col">Priority</th>
+					<th scope="col">Assigned to</th>
+					<th scope="col">Type</th>
+					<th scope="col">Description</th>
+					<th scope="col">Created</th>
+					<th scope="col">Last Edited</th>
+					<th scope="col">Status</th>
 				</tr>
-				{%for comment in comments%}
-					<tr>
-						<td>{{comment.commenter}}</td>
-						<td>{{comment.message}}</td>
-						<td>{{comment.timeCreated}}</td>
-					</tr>
-				{%endfor%}
+				<tr>
+					<td scope="col">{{ticket.id}}</td>
+					<td scope="row">{{ticket.project}}</td>
+					<td scope="row">{{ticket.submitter}}</td>
+					<td scope="row">{{ticket.priority}}</td>
+					<td scope="row">{{ticket.personnel}}</td>
+					<td scope="row">{{ticket.race}}</td>
+					<td scope="row">{{ticket.description}}</td>
+					<td scope="row">{{ticket.timeCreated}}</td>
+					<td scope="row">{{ticket.lastEdited}}</td>
+					<td scope="row">{{ticket.status}}</td>
+				</tr>
 			</table>
 		</div>
 	</div>
-	<div>
-		<form method="post" action="{% url 'tickets:upload' ticket.id %}" enctype="multipart/form-data">
-			<h3>Ticket Attachments</h3>
-			{%csrf_token%}
-			{{form2.as_p}}
-			<button type="submit">Upload</button>
-		</form>
-	</div>
-	<div>
-		<h3>Attachments</h3>
-		<div>
-			<ol>
-				{% for attachment in attachmentsList %}
-					<li>{{attachment.file}}, description: {{attachment.description}}</li>
-				{%endfor%}
-			</ol>
+
+	<div class="d-flex align-items-stretch">
+		<div class="form_card col-sm-5 m-3 ml-5">
+			<div class="">
+				<form method="post" action="{% url 'tickets:comment' ticket.id%}">
+					<h2 class="card-title text-center">Ticket Comments</h2>
+					{%csrf_token%}
+					<div class="d-flex justify-content-center m-2">
+						{%for field in form%}
+							<span>
+								<b class="m-2">{{field.label}}:</b> {{field}}
+							</span>	
+						{%endfor%}
+						<button class="btn btn-outline-warning ml-2 btn-sm" type="submit">Comment</button>
+					</div>
+				</form>
+			</div>
+			<div>
+				<h2 class="card-title text-center">Comments</h2>
+				<div>
+					<table class="table">
+						<tr>
+							<th scope="col">Commenter</th>
+							<th scope="col">Message</th>
+							<th scope="col">Created</th>
+						</tr>
+						{%for comment in comments%}
+							<tr>
+								<td scope="row">{{comment.commenter}}</td>
+								<td scope="row">{{comment.message}}</td>
+								<td scope="row">{{comment.timeCreated}}</td>
+							</tr>
+						{%endfor%}
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="form_card col-sm-6 m-3">
+			<div class="mb-4">
+				<form method="post" action="{% url 'tickets:upload' ticket.id %}" enctype="multipart/form-data">
+					<h2 class="card-title text-center">Attach File to Ticket</h2>
+					{%csrf_token%}
+					<div class="d-flex justify-content-center">
+						{%for field in form2%}
+							<span>
+								{{field.label}}: {{field}}
+							</span>	
+						{%endfor%}
+					
+					<button class="btn btn-outline-warning ml-2" type="submit">Upload</button>
+					</div>
+				</form>
+			</div>
+			<div>
+				<h2 class="card-title text-center">Attachments</h2>
+				<div class="d-flex justify-content-center">
+					<ol>
+						{% for attachment in attachmentsList %}
+							<li>{{attachment.file}}, <b>Description:</b> {{attachment.description}}</li>
+						{%endfor%}
+					</ol>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
